@@ -1,0 +1,14 @@
+# files
+*.crt
+*.key
+*.kubeconfig
+*-v2-test.yaml
+*.token
+*.ver
+pull_secret.*
+import.yaml
+klusterlet.crdsv1.yaml
+*.pem
+
+# dirs
+log

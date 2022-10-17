@@ -1,0 +1,14 @@
+apiVersion: work.open-cluster-management.io/v1
+kind: ManifestWork
+metadata:
+  name: test-configmap
+spec:
+  workload:
+    manifests:
+    - apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: test
+        namespace: default
+      data:
+        test: test-test 

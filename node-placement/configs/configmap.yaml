@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: image-config
+data:
+  image: quay.io/skeeey/addon-examples:latest
+  imagePullPolicy: Always
+

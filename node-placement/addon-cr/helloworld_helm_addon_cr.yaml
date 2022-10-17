@@ -1,0 +1,15 @@
+apiVersion: addon.open-cluster-management.io/v1alpha1
+kind: ManagedClusterAddOn
+metadata:
+  name: helloworldhelm
+spec:
+  installNamespace: open-cluster-management-agent-addon
+  configs:
+  - group: addon.open-cluster-management.io
+    resource: addondeploymentconfigs
+    name: deploy-config
+    namespace: cluster1
+  - resource: configmaps 
+    name: image-config
+    namespace: cluster1
+

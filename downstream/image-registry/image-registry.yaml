@@ -1,0 +1,40 @@
+apiVersion: imageregistry.open-cluster-management.io/v1alpha1
+kind: ManagedClusterImageRegistry
+metadata:
+  name: ds-image-registry
+  namespace: open-cluster-management
+spec:
+  placementRef:
+    group: cluster.open-cluster-management.io
+    name: ds-placement
+    resource: placements
+  pullSecret:
+    name: multiclusterhub-operator-pull-secret
+  registry: quay.io:443/acm-d
+
+---
+
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: ds-placement
+  namespace: open-cluster-management
+spec:
+  clusterSets:
+  - ds
+
+---
+
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: ManagedClusterSet
+metadata:
+  name: ds
+---
+
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: ManagedClusterSetBinding
+metadata:
+  name: ds
+  namespace: open-cluster-management
+spec:
+  clusterSet: ds

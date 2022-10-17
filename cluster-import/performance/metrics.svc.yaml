@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: import-metrics
+  namespace: open-cluster-management
+spec:
+  ports:
+  - name: https
+    port: 8383
+    protocol: TCP
+    targetPort: 8383
+  selector:
+    app: managedcluster-import-controller-test
+  type: ClusterIP

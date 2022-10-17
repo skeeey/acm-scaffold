@@ -1,0 +1,11 @@
+apiVersion: work.open-cluster-management.io/v1
+kind: ManifestWork
+metadata:
+  name: test-manifestwork-1
+spec:
+  workload:
+    manifests:
+    - apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: test1

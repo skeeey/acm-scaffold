@@ -1,0 +1,8 @@
+apiVersion: work.open-cluster-management.io/v1
+kind: ManifestWork
+metadata:
+  name: empty
+spec:
+  workload:
+    manifests: []
+
