@@ -16,6 +16,5 @@ oc -n open-cluster-management apply -f subscription.2.4.yaml
 wait_command "oc -n open-cluster-management apply -f multiclusterhub.yaml"
 
 oc -n open-cluster-management get mch -o=jsonpath='{.items[0].status.phase}{"\n"}'
-oc -n open-cluster-management get mch -o=jsonpath='{.items[0].status.currentVersion}{"\n"}'
 
 oc -n open-cluster-management get routes

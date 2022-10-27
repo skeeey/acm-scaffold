@@ -1,6 +1,6 @@
 #!/bin/bash
 
-api_server_url="api."
+api_server_url="api.local"
 subjectName="subjectAltName = DNS:${api_server_url}"
 patch="'{\"spec\":{\"servingCerts\":{\"namedCertificates\":[{\"names\": [\"${api_server}\"],\"servingCertificate\":{\"name\":\"skeeeyca\"}}]}}}'"
 
