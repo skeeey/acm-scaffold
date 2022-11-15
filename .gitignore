@@ -9,6 +9,7 @@ pull_secret.*
 import.yaml
 klusterlet.crdsv1.yaml
 *.pem
+api_server_url
 
 # dirs
 log
