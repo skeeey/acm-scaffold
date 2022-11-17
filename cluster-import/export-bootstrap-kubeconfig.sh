@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cluster="cluster1"
+cluster="local-cluster"
 
 kubectl -n ${cluster} get secrets ${cluster}-import -ojsonpath='{.data.import\.yaml}' | base64 -d > import.yaml
 cat import.yaml | grep -w kubeconfig | awk '{print $2}' | tail -1 | sed 's/\"//g' | base64 -d > bootstrap.kubeconfig
