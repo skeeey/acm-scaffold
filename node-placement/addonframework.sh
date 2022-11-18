@@ -8,6 +8,7 @@ source "${PARENT_DIR}"/utils
 
 comment "The managed clusters"
 pe "kubectl get managedclusters"
+
 comment "The add-ons"
 pe "kubectl get clustermanagementaddons"
 pe "kubectl -n open-cluster-management get pods"
@@ -21,7 +22,7 @@ pe "cat configs/addondeploymentconfig.yaml"
 pe "kubectl -n cluster1 apply -f configs/addondeploymentconfig.yaml"
 
 comment "configure the addon with the addondeploymentconfig"
-pe "kubectl -n cluster1 patch managedclusteraddons helloworld --type='json' -p='[{\"op\":\"add\", \"path\":\"/spec/configs\", \"value\":[{\"group\":\"addon.open-cluster-management.io\",\"resource\":\"addondeploymentconfigs\",\"namespace\":\"cluster1\",\"name\":\"deploy-config\"}]}]'"
+pe "kubectl -n cluster1 patch managedclusteraddons helloworld --type='json' -p='[{\"op\":\"add\", \"path\":\"/spec/supportConfigs\", \"value\":[{\"group\":\"addon.open-cluster-management.io\",\"resource\":\"addondeploymentconfigs\",\"namespace\":\"cluster1\",\"name\":\"deploy-config\"}]}]'"
 
 pe "kubectl -n cluster1 get managedclusteraddons helloworld -ojsonpath='{.status.configReferences}'"
 echo ""
@@ -47,8 +48,8 @@ pe "kubectl get clustermanagementaddons helloworldhelm -oyaml"
 pe "cat configs/configmap.yaml"
 pe "kubectl -n cluster1 apply -f configs/configmap.yaml"
 
-pe "cat addon-cr/helloworld_helm_addon_cr.yaml"
-pe "kubectl -n cluster1 apply -f addon-cr/helloworld_helm_addon_cr.yaml"
+pe "cat addons/helloworld_helm_addon_cr.yaml"
+pe "kubectl -n cluster1 apply -f addons/helloworld_helm_addon_cr.yaml"
 
 pe "kubectl -n cluster1 get managedclusteraddons helloworldhelm -ojsonpath='{.status.configReferences}'"
 echo ""

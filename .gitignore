@@ -11,6 +11,7 @@ klusterlet.crdsv1.yaml
 *.pem
 *.log
 api_server_url
+kubeconfig_path
 
 # dirs
 log

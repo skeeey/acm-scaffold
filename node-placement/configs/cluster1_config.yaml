@@ -1,0 +1,13 @@
+apiVersion: addon.open-cluster-management.io/v1alpha1
+kind: AddOnDeploymentConfig
+metadata:
+  name: cluster1
+spec:
+  nodePlacement:
+    nodeSelector:
+      "dedicated": "acm-managed-servcieaccount"
+    tolerations:
+    - effect: NoSchedule
+      key: dedicated
+      value: acm-managed-servcieaccount
+      operator: Equal
