@@ -6,4 +6,8 @@ kubectl -n $cluster_name get secrets "${cluster_name}-import" -o=jsonpath='{.dat
 
 kubectl -n $cluster_name get secrets "${cluster_name}-import" -o=jsonpath='{.data.import\.yaml}' | base64 -d > import.yaml
 
-echo "Apply the klusterlet.crdsv1.yaml and import.yaml to the managed cluster"
+kubeconfig="$(cat kubeconfig_path)"
+echo "Apply the klusterlet.crdsv1.yaml and import.yaml to the managed cluster ${kubeconfig}"
+
+kubectl --kubeconfig ${kubeconfig} apply -f klusterlet.crdsv1.yaml
+kubectl --kubeconfig ${kubeconfig} apply -f import.yaml

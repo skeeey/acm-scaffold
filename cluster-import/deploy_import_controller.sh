@@ -19,6 +19,11 @@ if [ "$1"x = "restart"x ]; then
     exit 0
 fi
 
+kubectl -n $ns get deploy managedcluster-import-controller-v2 -o yaml > managedcluster-import-controller-v2-test.yaml
+
+echo ">>> replace the image in managedcluster-import-controller-v2-test.yaml"
+read
+
 kubectl annotate mce multiclusterengine pause=true --overwrite
 kubectl -n $ns scale deployment.v1.apps/managedcluster-import-controller-v2 --replicas=0
 kubectl -n $ns apply -f managedcluster-import-controller-v2-test.yaml

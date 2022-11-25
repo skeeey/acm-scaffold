@@ -1,0 +1,11 @@
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: ClusterCurator
+metadata:
+  name: cluster1
+  namespace: cluster1
+  labels:
+    open-cluster-management: curator
+spec:
+  desiredCuration: upgrade
+  upgrade:
+    desiredUpdate: "4.10.40"

@@ -14,7 +14,7 @@ wait_command() {
 }
 
 comment() {
-  echo -e '\033[0;33m>>> '$1' <<<\033[0m'
+  echo -e '\033[0;33m'$1'\033[0m'
 }
 
 generate_ca() {
