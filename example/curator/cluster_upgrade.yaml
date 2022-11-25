@@ -8,4 +8,5 @@ metadata:
 spec:
   desiredCuration: upgrade
   upgrade:
-    desiredUpdate: "4.10.40"
+    desiredUpdate: "4.10.100"
+    monitorTimeout: 240

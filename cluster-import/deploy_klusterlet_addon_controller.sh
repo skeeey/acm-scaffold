@@ -9,8 +9,8 @@ if [ "$1"x = "recover"x ]; then
     kubectl -n open-cluster-management delete -f klusterlet-addon-controller-v2-test.yaml
 
     kubectl -n multicluster-engine scale deployment.v1.apps/ocm-controller --replicas=2
-    kubectl -n open-cluster-management scale deployment.v1.apps/managedcluster-import-controller-v2 --replicas=2
-     
+    kubectl -n open-cluster-management scale deployment.v1.apps/klusterlet-addon-controller-v2 --replicas=2
+
     exit 0
 fi
 

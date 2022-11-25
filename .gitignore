@@ -2,7 +2,7 @@
 *.crt
 *.key
 *.kubeconfig
-*-v2-test.yaml
+*-test.yaml
 *.token
 *.ver
 pull_secret.*
