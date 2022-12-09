@@ -29,3 +29,7 @@ kubectl -n $ns scale deployment.v1.apps/managedcluster-import-controller-v2 --re
 kubectl -n $ns apply -f managedcluster-import-controller-v2-test.yaml
 
 kubectl -n $ns get pods -w
+
+echo ""
+kubectl -n multicluster-engine get deploy managedcluster-import-controller-v2-test -ojsonpath='{.spec.template.spec.containers[0].image}'
+echo ""

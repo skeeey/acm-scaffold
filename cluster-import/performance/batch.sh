@@ -22,5 +22,5 @@ EOF
 
     index=$(($index + 1))
 
-    sleep 2
+    sleep 5
 done

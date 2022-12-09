@@ -12,6 +12,10 @@ klusterlet.crdsv1.yaml
 *.log
 api_server_url
 kubeconfig_path
+ocm/join.sh
+
+splitted-import*.yaml
+*-kubeconfig.yaml
 
 # dirs
 log
