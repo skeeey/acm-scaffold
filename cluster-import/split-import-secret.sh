@@ -12,4 +12,4 @@ rm -f splitted-import*.yaml
 
 csplit import.yaml /---/ -n2 -s {*} -f splitted-import -b "%02d.yaml"
 
-cat splitted-import08.yaml | grep kubeconfig | grep -v bootstrap-hub-kubeconfig | awk '{print $2}' | sed 's/\"//g' | base64 -d > '${cluster_name}'-bootstrap-hub-kubeconfig.yaml
+cat splitted-import08.yaml | grep kubeconfig | grep -v bootstrap-hub-kubeconfig | awk '{print $2}' | sed 's/\"//g' | base64 -d > "${cluster_name}-bootstrap-hub-kubeconfig.yaml"
