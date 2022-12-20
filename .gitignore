@@ -13,6 +13,7 @@ klusterlet.crdsv1.yaml
 api_server_url
 kubeconfig_path
 ocm/join.sh
+auth_file
 
 splitted-import*.yaml
 *-kubeconfig.yaml

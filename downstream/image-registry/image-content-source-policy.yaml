@@ -11,5 +11,5 @@ spec:
     - quay.io:443/acm-d
     source: registry.redhat.io/multicluster-engine
   - mirrors:
-    - quay.io:443/acm-d/ose-oauth-proxy
-    source: registry.redhat.io/openshift4/openshift4/ose-oauth-proxy
+    - registry.redhat.io/openshift4/ose-oauth-proxy
+    source: registry.access.redhat.com/openshift4/ose-oauth-proxy
