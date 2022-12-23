@@ -21,15 +21,19 @@ fi
 
 kubectl -n $ns get deploy managedcluster-import-controller-v2 -o yaml > managedcluster-import-controller-v2-test.yaml
 
+kubectl annotate mce multiclusterengine pause=true --overwrite
+kubectl -n $ns scale deployment.v1.apps/managedcluster-import-controller-v2 --replicas=0
+
+if [ "$1"x = "stop"x ]; then
+    kubectl -n multicluster-engine get deploy managedcluster-import-controller-v2
+    exit 0
+fi
+
 echo ">>> replace the image in managedcluster-import-controller-v2-test.yaml"
 read
 
-kubectl annotate mce multiclusterengine pause=true --overwrite
-kubectl -n $ns scale deployment.v1.apps/managedcluster-import-controller-v2 --replicas=0
 kubectl -n $ns apply -f managedcluster-import-controller-v2-test.yaml
-
 kubectl -n $ns get pods -w
-
 echo ""
 kubectl -n multicluster-engine get deploy managedcluster-import-controller-v2-test -ojsonpath='{.spec.template.spec.containers[0].image}'
 echo ""
