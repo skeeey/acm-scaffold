@@ -6,4 +6,4 @@ metadata:
 spec:
   veleroSchedule: 0 */2 * * *
   veleroTtl: 120h
-
+  useManagedServiceAccount: true
