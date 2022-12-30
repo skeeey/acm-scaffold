@@ -24,11 +24,6 @@ kubectl -n $ns get deploy managedcluster-import-controller-v2 -o yaml > managedc
 kubectl annotate mce multiclusterengine pause=true --overwrite
 kubectl -n $ns scale deployment.v1.apps/managedcluster-import-controller-v2 --replicas=0
 
-if [ "$1"x = "stop"x ]; then
-    kubectl -n multicluster-engine get deploy managedcluster-import-controller-v2
-    exit 0
-fi
-
 echo ">>> replace the image in managedcluster-import-controller-v2-test.yaml"
 read
 

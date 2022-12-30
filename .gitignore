@@ -14,6 +14,8 @@ api_server_url
 kubeconfig_path
 ocm/join.sh
 auth_file
+*.profile
+*.trace
 
 splitted-import*.yaml
 *-kubeconfig.yaml
