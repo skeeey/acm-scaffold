@@ -1,0 +1,13 @@
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  annotations:
+    open-cluster-management/created-via: other
+    import.open-cluster-management.io/klusterlet-deploy-mode: Hosted
+    import.open-cluster-management.io/hosting-cluster-name: local-cluster
+  labels:
+    name: hosted-cluster-1
+  name: hosted-cluster-1
+spec:
+  hubAcceptsClient: true
+  leaseDurationSeconds: 60
