@@ -1,21 +1,51 @@
 #!/bin/bash
 
 retry="5"
-cluster="$1"
 
-kubeconfigfile="$(cat kubeconfig_path)"
+cluster="$1"
 
 server=""
 token=""
 
-kubectl -n $cluster create secret generic auto-import-secret \
-    --from-literal=autoImportRetry=$retry \
-    --from-file=kubeconfig=$kubeconfigfile
-kubectl annotate -n $cluster secret auto-import-secret managedcluster-import-controller.open-cluster-management.io/keeping-auto-import-secret=true --overwrite
+kubeconfig=""
 
-# kubectl -n $cluster create secret generic auto-import-secret \
-#     --from-literal=autoImportRetry=5 \
-#     --from-literal=server=$server \
-#     --from-literal=token=$token
+#labels: "cluster.open-cluster-management.io/restore-auto-import-secret": "true"
 
-#kubectl label -n $cluster secret auto-import-secret cluster.open-cluster-management.io/restore-auto-import-secret=true --overwrite
+kubectl -n $cluster delete secret auto-import-secret --ignore-not-found
+
+if [ -n "$server" ]; then
+    cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: auto-import-secret
+  namespace: "$cluster"
+  annotations:
+    "managedcluster-import-controller.open-cluster-management.io/keeping-auto-import-secret": "true"
+type: Opaque
+stringData:
+  autoImportRetry: "${retry}"
+  server: "${server}"
+  token: "${token}"
+EOF
+    exit $?
+fi
+
+
+
+if [ -n "$kubeconfig" ]; then
+    cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: auto-import-secret
+  namespace: "$cluster"
+  annotations:
+    "managedcluster-import-controller.open-cluster-management.io/keeping-auto-import-secret": "true"
+type: Opaque
+stringData:
+  autoImportRetry: "${retry}"
+  kubeconfig: "${kubeconfig}"
+EOF
+    exit $?
+fi
