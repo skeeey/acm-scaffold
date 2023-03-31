@@ -11,4 +11,4 @@ spec:
         name: test
         namespace: default
       data:
-        test: test-test 
+        test: test-test
