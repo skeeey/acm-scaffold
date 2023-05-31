@@ -1,22 +1,20 @@
 #!/bin/bash
 
-hosted_cluster_name="hosted-test"
-hosted_kubeconfig="/home/centos/clusters/aws/cluster2.kubeconfig"
+kubectl -n multicluster-controlplane get secrets multicluster-controlplane-kubeconfig -ojsonpath='{.data.kubeconfig}' | base64 -d > multicluster-controlplane.kubeconfig
 
-# prepare managed cluster kubeconfig secret
-kubectl delete namespace $hosted_cluster_name --ignore-not-found --wait
-kubectl create namespace $hosted_cluster_name
+NUMBER=1
+for i in $(seq 1 "${NUMBER}"); do
+  CLUSTER_NAME=hosted-cluster$i
 
-
-kubectl -n $hosted_cluster_name create secret generic managedcluster-kubeconfig --from-file kubeconfig=$hosted_kubeconfig
-
-# apply hosted klusterlet
-cat <<EOF | kubectl apply -f -
+  kubectl --kubeconfig multicluster-controlplane.kubeconfig create namespace $CLUSTER_NAME
+  kubectl --kubeconfig multicluster-controlplane.kubeconfig -n $CLUSTER_NAME create secret generic managedcluster-kubeconfig --from-file kubeconfig=/home/centos/clusters/aws/cluster2-admin.kubeconfig
+  cat <<EOF | kubectl --kubeconfig multicluster-controlplane.kubeconfig apply -f -
 apiVersion: operator.open-cluster-management.io/v1
 kind: Klusterlet
 metadata:
-  name: $hosted_cluster_name
+  name: $CLUSTER_NAME
 spec:
   deployOption:
     mode: Hosted
 EOF
+done
