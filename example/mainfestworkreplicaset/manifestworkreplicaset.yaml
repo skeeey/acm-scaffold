@@ -1,0 +1,57 @@
+apiVersion: work.open-cluster-management.io/v1alpha1
+kind: ManifestWorkReplicaSet
+metadata:
+  name: cronjob
+  namespace: default
+spec:
+  placementRefs:
+    - name: placement # Name of a created Placement
+  manifestWorkTemplate:
+    deleteOption:
+      propagationPolicy: SelectivelyOrphan
+      selectivelyOrphans:
+        orphaningRules:
+          - group: ''
+            name: ocm-ns
+            namespace: ''
+            resource: Namespace
+    manifestConfigs:
+      - feedbackRules:
+          - jsonPaths:
+              - name: lastScheduleTime
+                path: .status.lastScheduleTime
+              - name: lastSuccessfulTime
+                path: .status.lastSuccessfulTime
+            type: JSONPaths
+        resourceIdentifier:
+          group: batch
+          name: sync-cronjob
+          namespace: ocm-ns
+          resource: cronjobs
+    workload:
+      manifests:
+        - kind: Namespace
+          apiVersion: v1
+          metadata:
+            name: ocm-ns
+        - kind: CronJob
+          apiVersion: batch/v1
+          metadata:
+            name: sync-cronjob
+            namespace: ocm-ns
+          spec:
+            schedule: '* * * * *'
+            concurrencyPolicy: Allow
+            suspend: false
+            jobTemplate:
+              spec:
+                backoffLimit: 2
+                template:
+                  spec:
+                    containers:
+                      - name: hello
+                        image: 'quay.io/prometheus/busybox:latest'
+                        args:
+                          - /bin/sh
+                          - '-c'
+                          - date; echo Hello from the Kubernetes cluster
