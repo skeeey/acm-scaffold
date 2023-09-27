@@ -58,3 +58,4 @@ kubectl delete namespace default-broker --ignore-not-found
 kubectl delete namespace multicluster-engine --ignore-not-found
 kubectl delete namespace open-cluster-management --ignore-not-found
 kubectl get namespace
+
