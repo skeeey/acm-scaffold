@@ -1,0 +1,39 @@
+apiVersion: work.open-cluster-management.io/v1
+kind: ManifestWork
+metadata:
+  name: test-deploy
+spec:
+  manifestConfigs:
+    - resourceIdentifier:
+        group: apps
+        resource: deployments
+        name: nginx
+        namespace: default
+      updateStrategy:
+        type: CreateOnly
+  workload:
+    manifests:
+      - apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: nginx
+          namespace: default
+          ownerReferences:
+            - apiVersion: v1
+              kind: ConfigMap
+              name: test
+              uid: 52a49e56-ebc5-4c7a-9b89-e557017d6f2a
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: nginx
+          template:
+            metadata:
+              labels:
+                app: nginx
+            spec:
+              containers:
+                - image: nginxinc/nginx-unprivileged
+                  imagePullPolicy: IfNotPresent
+                  name: nginx
