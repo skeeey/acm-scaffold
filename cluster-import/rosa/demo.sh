@@ -7,26 +7,25 @@ source "${PARENT_DIR}"/demo_magic
 source "${PARENT_DIR}"/utils
 
 ocm_api_token="$(cat ${DEMO_DIR}/ocmapi.token)"
-rosa_cluster_name="$(cat ${DEMO_DIR}/cluster_name)"
-
-if [ -z "${rosa_cluster_name}" ]; then
-    echo "rosa cluster name is required"
-    exit 1
-fi
+rosa_cluster_name="$1"
 
 if [ -z "${ocm_api_token}" ]; then
     echo "OCM API token is required"
     exit 1
 fi
 
-rosa_cluster_id="$(rosa describe cluster -c ${rosa_cluster_name} -o json | jq -r '.id')"
-
 if [ -z "${rosa_cluster_name}" ]; then
+    echo "rosa cluster name is required"
+    exit 1
+fi
+
+rosa_cluster_id="$(rosa describe cluster -c ${rosa_cluster_name} -o json | jq -r '.id')"
+if [ -z "${rosa_cluster_id}" ]; then
     echo "cannot find the rosa cluster ${rosa_cluster_name}"
     exit 1
 fi
 
-cat <<EOF > rosa_cluster.yaml
+cat <<EOF > ${rosa_cluster_name}_rosa_cluster.yaml
 apiVersion: cluster.open-cluster-management.io/v1
 kind: ManagedCluster
 metadata:
@@ -35,11 +34,12 @@ spec:
   hubAcceptsClient: true
 EOF
 
+
 comment "ROSA clusters"
 pe "rosa list clusters"
 
 comment "Create a managed cluster ${rosa_cluster_name} for ROSA cluster ${rosa_cluster_id}"
-pe "oc apply -f rosa_cluster.yaml"
+pe "oc apply -f ${rosa_cluster_name}_rosa_cluster.yaml"
 pe "oc get managedcluster ${rosa_cluster_name}"
 
 comment "Create an auto-import-secret in the managed cluster ${rosa_cluster_name} namespace"
