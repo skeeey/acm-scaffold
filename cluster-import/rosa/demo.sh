@@ -17,8 +17,8 @@ fi
 comment "ROSA clusters"
 pe "rosa list clusters"
 
-rosa_cluster_id="28ucf1mscvl1he0h90v5cfdjjcj4vs2f"
-rosa_cluster_name="wliu-rosa-hcp"
+rosa_cluster_id=""
+rosa_cluster_name=""
 
 cat <<EOF > ${rosa_cluster_name}_rosa_cluster.yaml
 apiVersion: cluster.open-cluster-management.io/v1
@@ -34,9 +34,7 @@ pe "oc apply -f ${rosa_cluster_name}_rosa_cluster.yaml"
 pe "oc get managedclusters"
 
 comment "Create an auto-import-secret in the managed cluster ${rosa_cluster_name} namespace"
-comment "Get the api_token from https://console.redhat.com/openshift/token/rosa to "
-comment "If using OCM integration or staging environment, add the api_url to the auto-import-secret"
-comment "e.g. to use integration environment, add the --from-literal=api_url=https://api.integration.openshift.com"
+comment "Go to https://console.redhat.com/openshift/token/rosa geting the token to access the https://api.openshift.com"
 pe "oc create secret generic auto-import-secret -n ${rosa_cluster_name} --type='auto-import/rosa' --from-literal=cluster_id=${rosa_cluster_id} --from-file=api_token=ocmapi.token"
 
 comment "Once the auto-import-secret is created, the import-controller will create a temporary cluster"
@@ -52,3 +50,4 @@ pe "oc get managedcluster ${rosa_cluster_name} -w"
 comment "After the managed cluster ${rosa_cluster_name} is imported, the temporary import user will be removed"
 pe "rosa list idps -c ${rosa_cluster_id}"
 pe "rosa list users -c ${rosa_cluster_id}"
+
