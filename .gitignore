@@ -2,14 +2,20 @@
 *.csr
 *.crt
 *.key
+*.ver
+*.ks
+*.ts
+*.p12
+*.jks
+*.jceks
+*.token
+*.pem
+*.pw
 *.kubeconfig
 *-test.yaml
-*.token
-*.ver
 pull_secret.*
 import.yaml
 klusterlet.crdsv1.yaml
-*.pem
 *.log
 api_server_url
 kubeconfig_path
@@ -19,9 +25,10 @@ auth_file
 *.profile
 *.trace
 *_rosa_cluster.yaml
-
 splitted-import*.yaml
 *-kubeconfig.yaml
+cert.json
+server.host
 
 # dirs
 log

@@ -1,0 +1,40 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemis
+metadata:
+  name: ex-aao
+  namespace: amq-broker
+spec:
+  brokerProperties:
+  - securityRoles.#.group1.send=true
+  - securityRoles.#.group1.consume=true
+  deploymentPlan:
+    size: 1
+    image: placeholder
+    requireLogin: false
+    persistenceEnabled: false
+    journalType: nio
+    messageMigration: false
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1024Mi
+      requests:
+        cpu: 250m
+        memory: 512Mi
+    jolokiaAgentEnabled: false
+    managementRBACEnabled: true
+    extraMounts:
+      secrets:
+        - mqtt-jaas-config
+  acceptors:
+    - name: mqtt
+      protocols: mqtt
+      port: 1883
+      sslEnabled: true
+      sslSecret: mqtt-tls-secret
+      expose: true
+      needClientAuth: true
+  upgrades:
+    enabled: false
+    minor: false
+
