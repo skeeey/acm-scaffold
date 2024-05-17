@@ -1,0 +1,45 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Connect"
+            ],
+            "Resource": [
+                "arn:aws:$region:$awsid:client/$source-pub-client",
+                "arn:aws:$region:$awsid:client/$source-sub-client"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Publish"
+            ],
+            "Resource": [
+                "arn:aws:$region:$awsid:topic/sources/$source/clusters/*/spec",
+                "arn:aws:$region:$awsid:topic/sources/$source/clusters/statusresync"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Subscribe"
+            ],
+            "Resource": [
+                "arn:aws:$region:$awsid:topicfilter/sources/$source/clusters/+/status",
+                "arn:aws:$region:$awsid:topicfilter/sources/clusters/+/specresync"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iot:Receive"
+            ],
+            "Resource": [
+                "arn:aws:$region:$awsid:topic/sources/$source/clusters/*/status",
+                "arn:aws:$region:$awsid:topic/sources/clusters/*/specresync"
+            ]
+        }
+    ]
+}
