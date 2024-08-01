@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-0
+  namespace: default
+data:
+  test: test-test
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-1
+  namespace: default
+  labels:
+    "app": "nginx"
+    "env": "prod"
+    "val": "a"
+data:
+  test: test-test
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-2
+  namespace: default
+  labels:
+    "app": "nginx"
+    "env": "test"
+    "val": "a"
+data:
+  test: test-test
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-3
+  namespace: default
+  labels:
+    "app": "nginx"
+    "env": "test"
+    "val": "b"
+data:
+  test: test-test
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-4
+  namespace: default
+  labels:
+    "app": "nginx"
+    "env": "test"
+    "val": "c"
+data:
+  test: test-test
