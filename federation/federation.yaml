@@ -41,6 +41,6 @@ status:
     - lastTransitionTime: "2024-08-20T10:03:25.444541142Z"
       status: "True"
       type: ServerReady
-   - lastTransitionTime: "2024-08-20T10:03:25.444541142Z"
+    - lastTransitionTime: "2024-08-20T10:03:25.444541142Z"
       status: "True"
       type: ClientsReady
