@@ -5,11 +5,11 @@ CERTS_DIR=$PWD/certs
 
 mkdir -p ${CERTS_DIR}
 
-vpn=""
+vpc=""
 region=""
 db_pw=""
 
-echo "vpn: $vpn"
+echo "vpc: $vpc"
 echo "region: $region"
 
 # Download db public ca
@@ -17,14 +17,14 @@ echo "region: $region"
 curl -o ${CERTS_DIR}/ca.pem "https://truststore.pki.rds.amazonaws.com/${region}/${region}-bundle.pem"
 
 # Allow db connection in the default security group
-sg=$(aws ec2 get-security-groups-for-vpc --vpc-id ${vpn} --region ${region} --query "SecurityGroupForVpcs[?GroupName=='default'].GroupId" | jq -r '.[0]')
+sg=$(aws ec2 get-security-groups-for-vpc --vpc-id ${vpc} --region ${region} --query "SecurityGroupForVpcs[?GroupName=='default'].GroupId" | jq -r '.[0]')
 result=$(aws ec2 authorize-security-group-ingress --group-id ${sg} --protocol tcp --port 5432 --cidr 0.0.0.0/0 | jq -r '.Return')
 echo "Add inbound rule for postgrep db in ${sg} (${result})"
 
 # Prepare db subnet group
 # aws rds delete-db-subnet-group --db-subnet-group-name maestrosubnetgroup
 all_subnets=""
-for subnet in $(aws ec2 describe-subnets --filters "Name=vpc-id,Values=${vpn}" | jq -r '.Subnets[].SubnetId'); do
+for subnet in $(aws ec2 describe-subnets --filters "Name=vpc-id,Values=${vpc}" | jq -r '.Subnets[].SubnetId'); do
     all_subnets="$all_subnets,\"$subnet\""
 done
 
