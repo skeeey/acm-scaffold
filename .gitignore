@@ -29,6 +29,8 @@ splitted-import*.yaml
 *-kubeconfig.yaml
 cert.json
 server.host
+source.json
+consumer.json
 
 # dirs
 log

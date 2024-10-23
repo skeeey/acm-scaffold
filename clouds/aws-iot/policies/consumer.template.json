@@ -7,8 +7,7 @@
                 "iot:Connect"
             ],
             "Resource": [
-                "arn:aws:$region:$awsid:client/$source-pub-client",
-                "arn:aws:$region:$awsid:client/$source-sub-client"
+                "arn:aws:iot:{region}:{aws_account}:client/{consumer_id}-client"
             ]
         },
         {
@@ -17,8 +16,7 @@
                 "iot:Publish"
             ],
             "Resource": [
-                "arn:aws:$region:$awsid:topic/sources/$source/clusters/*/spec",
-                "arn:aws:$region:$awsid:topic/sources/$source/clusters/statusresync"
+                "arn:aws:iot:{region}:{aws_account}:topic/sources/maestro/consumers/{consumer_id}/agentevents"
             ]
         },
         {
@@ -27,8 +25,7 @@
                 "iot:Subscribe"
             ],
             "Resource": [
-                "arn:aws:$region:$awsid:topicfilter/sources/$source/clusters/+/status",
-                "arn:aws:$region:$awsid:topicfilter/sources/clusters/+/specresync"
+                "arn:aws:iot:{region}:{aws_account}:topicfilter/sources/maestro/consumers/{consumer_id}/sourceevents"
             ]
         },
         {
@@ -37,8 +34,7 @@
                 "iot:Receive"
             ],
             "Resource": [
-                "arn:aws:$region:$awsid:topic/sources/$source/clusters/*/status",
-                "arn:aws:$region:$awsid:topic/sources/clusters/*/specresync"
+                "arn:aws:iot:{region}:{aws_account}:topic/sources/maestro/consumers/{consumer_id}/sourceevents"
             ]
         }
     ]
