@@ -1,0 +1,22 @@
+apiVersion: rbac.open-cluster-management.io/v1alpha1
+kind: ClusterPermission
+metadata:
+  name: edit
+spec:
+  roleBindings:
+  - namespace: kubevirt-workspace-1
+    roleRef:
+      kind: Role
+      name: kubevirt.io:edit
+    subject:
+      kind: User
+      name: user0
+      apiGroup: rbac.authorization.k8s.io
+  - namespace: kubevirt-workspace-2
+    roleRef:
+      kind: Role
+      name: kubevirt.io:edit
+    subject:
+      kind: User
+      name: user0
+      apiGroup: rbac.authorization.k8s.io

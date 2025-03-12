@@ -1,0 +1,38 @@
+apiVersion: rbac.open-cluster-management.io/v1alpha1
+kind: ClusterPermission
+metadata:
+  name: admin
+spec:
+  roleBindings:
+  - namespace: kubevirt-workspace-0
+    roleRef:
+      kind: ClusterRole
+      name: kubevirt.io:admin
+    subject:
+      kind: Group
+      name: system:cluster-admins
+      apiGroup: rbac.authorization.k8s.io
+  - namespace: kubevirt-workspace-1
+    roleRef:
+      kind: ClusterRole
+      name: kubevirt.io:admin
+    subject:
+      kind: Group
+      name: system:cluster-admins
+      apiGroup: rbac.authorization.k8s.io
+  - namespace: kubevirt-workspace-2
+    roleRef:
+      kind: ClusterRole
+      name: kubevirt.io:admin
+    subject:
+      kind: Group
+      name: system:cluster-admins
+      apiGroup: rbac.authorization.k8s.io
+  - namespace: kubevirt-workspace-3
+    roleRef:
+      kind: ClusterRole
+      name: kubevirt.io:admin
+    subject:
+      kind: Group
+      name: system:cluster-admins
+      apiGroup: rbac.authorization.k8s.io
