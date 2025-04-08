@@ -1,0 +1,37 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubevirtprojects
+rules:
+- apiGroups: ["clusterview.open-cluster-management.io"]
+  resources: ["kubevirtprojects"]
+  verbs: ["list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubevirtprojects
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubevirtprojects
+subjects:
+  - kind: User
+    apiGroup: rbac.authorization.k8s.io
+    name: user0
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubevirtprojects-group
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubevirtprojects
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: kubevirt-projects-view
