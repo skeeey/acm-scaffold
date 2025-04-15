@@ -40,7 +40,7 @@ C_NUM=0
 
 # prompt and command color which can be overridden
 DEMO_PROMPT="$ "
-DEMO_CMD_COLOR=$WHITE
+DEMO_CMD_COLOR=$BLACK
 DEMO_COMMENT_COLOR=$GREY
 
 ##
