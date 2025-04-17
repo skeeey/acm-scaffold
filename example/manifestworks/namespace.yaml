@@ -1,7 +1,7 @@
 apiVersion: work.open-cluster-management.io/v1
 kind: ManifestWork
 metadata:
-  name: test-manifestwork-1
+  name: test-namespace
 spec:
   workload:
     manifests:
