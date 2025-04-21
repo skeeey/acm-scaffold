@@ -15,23 +15,23 @@ import (
 
 func main() {
 	// 创建证书输出目录
-	if err := os.MkdirAll("certs", 0755); err != nil {
+	if err := os.MkdirAll("self-certs", 0755); err != nil {
 		log.Fatalf("Failed to create certs directory: %v", err)
 	}
 
 	// 1. 生成 CA 证书
 	caCert, caKey := generateCA()
-	saveCertAndKey("certs/ca.crt", "certs/ca.key", caCert, caKey)
+	saveCertAndKey("self-certs/ca.crt", "self-certs/ca.key", caCert, caKey)
 
 	// 2. 生成服务器证书
 	serverCert, serverKey := generateCert(caCert, caKey, "server", []string{"localhost", "server"}, []string{"127.0.0.1"})
-	saveCertAndKey("certs/server.crt", "certs/server.key", serverCert, serverKey)
+	saveCertAndKey("self-certs/server.crt", "self-certs/server.key", serverCert, serverKey)
 
 	// 3. 生成客户端证书
 	clientCert, clientKey := generateCert(caCert, caKey, "client", nil, nil)
-	saveCertAndKey("certs/client.crt", "certs/client.key", clientCert, clientKey)
+	saveCertAndKey("self-certs/client.crt", "self-certs/client.key", clientCert, clientKey)
 
-	log.Println("All certificates generated successfully in the 'certs' directory")
+	log.Println("All certificates generated successfully in the 'self-certs' directory")
 }
 
 func generateCA() (*x509.Certificate, *rsa.PrivateKey) {
