@@ -1,0 +1,12 @@
+apiVersion: flightctl.io/v1alpha1
+kind: Device
+metadata:
+  name: <name>
+spec:
+  config:
+  - name: my-os-configuration
+    configType: GitConfigProviderSpec
+    gitRef:
+      path: /fligthctl/centos
+      repository: site-settings
+      targetRevision: master
