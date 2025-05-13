@@ -3,10 +3,14 @@ kind: Device
 metadata:
   name: <name>
 spec:
-  config:
-  - name: my-os-configuration
-    configType: GitConfigProviderSpec
-    gitRef:
-      path: /fligthctl/centos
-      repository: site-settings
-      targetRevision: master
+  applications:
+  - name: my-app
+    appType: compose
+    inline:
+      - content: |
+            version: "3.8"
+            services:
+              service1:
+                image:  quay.io/flightctl-tests/alpine:v1
+                command: ["sleep", "infinity"]
+        path: podman-compose.yaml
