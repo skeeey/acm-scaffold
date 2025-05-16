@@ -1,0 +1,50 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: klusterlet-registration-agent
+  labels:
+    app: klusterlet-registration-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: klusterlet-registration-agent
+  template:
+    metadata:
+      labels:
+        app: klusterlet-registration-agent
+    spec:
+      serviceAccountName: spoke-sa
+      containers:
+      - name: registration-agent
+        image: quay.io/open-cluster-management/registration:latest
+        imagePullPolicy: IfNotPresent
+        args:
+          - "/registration"
+          - "agent"
+          - "--cluster-name=cluster1"
+          - "--bootstrap-kubeconfig=/spoke/bootstrap/kubeconfig"
+          - "--registration-auth=grpc"
+          - "--grpc-bootstrap-config=/spoke/bootstrap/config.yaml"
+          - "--grpc-config=/spoke/hub-kubeconfig/config.yaml"
+          - "--disable-leader-election"
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+          privileged: false
+          runAsNonRoot: true
+        volumeMounts:
+        - name: bootstrap-secret
+          mountPath: "/spoke/bootstrap"
+          readOnly: true
+        - name: hub-kubeconfig
+          mountPath: "/spoke/hub-kubeconfig"
+      volumes:
+      - name: bootstrap-secret
+        secret:
+          secretName: bootstrap-secret
+      - name: hub-kubeconfig
+        emptyDir:
+          medium: Memory

@@ -1,0 +1,22 @@
+# Adds namespace to all resources.
+namespace: open-cluster-management-hub
+
+resources:
+- ./0000_00_addon.open-cluster-management.io_clustermanagementaddons.crd.yaml
+- ./0000_00_clusters.open-cluster-management.io_managedclusters.crd.yaml
+- ./0000_00_clusters.open-cluster-management.io_managedclustersets.crd.yaml
+- ./0000_00_work.open-cluster-management.io_manifestworks.crd.yaml
+- ./0000_01_addon.open-cluster-management.io_managedclusteraddons.crd.yaml
+- ./0000_01_clusters.open-cluster-management.io_managedclustersetbindings.crd.yaml
+- ./0000_02_addon.open-cluster-management.io_addondeploymentconfigs.crd.yaml
+- ./0000_02_clusters.open-cluster-management.io_placements.crd.yaml
+- ./0000_03_addon.open-cluster-management.io_addontemplates.crd.yaml
+- ./0000_03_clusters.open-cluster-management.io_placementdecisions.crd.yaml
+- ./0000_05_clusters.open-cluster-management.io_addonplacementscores.crd.yaml
+- ./serviceaccount.yaml
+- ./clusterrolebinding.yaml
+- ./deployment.registration.yaml
+- ./deployment.grpc-server.yaml
+- ./deployment.addon-manager.yaml
+- ./deployment.placement.yaml
+- ./service.yaml

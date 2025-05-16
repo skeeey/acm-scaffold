@@ -1,0 +1,36 @@
+apiVersion: work.open-cluster-management.io/v1
+kind: ManifestWork
+metadata:
+  name: nginx
+spec:
+  manifestConfigs:
+    - resourceIdentifier:
+        group: apps
+        resource: deployments
+        name: nginx
+        namespace: default
+      updateStrategy:
+        type: ServerSideApply
+      feedbackRules:
+      - type: WellKnownStatus
+  workload:
+    manifests:
+      - apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: nginx
+          namespace: default
+        spec:
+          replicas: 2
+          selector:
+            matchLabels:
+              app: nginx
+          template:
+            metadata:
+              labels:
+                app: nginx
+            spec:
+              containers:
+                - image: quay.io/skeeey/nginx-unprivilege
+                  imagePullPolicy: IfNotPresent
+                  name: nginx

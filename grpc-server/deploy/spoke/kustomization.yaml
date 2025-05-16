@@ -1,0 +1,10 @@
+# Adds namespace to all resources.
+namespace: open-cluster-management-agent
+
+resources:
+- ./0000_01_work.open-cluster-management.io_appliedmanifestworks.crd.yaml
+- ./0000_02_clusters.open-cluster-management.io_clusterclaims.crd.yaml
+- ./serviceaccount.yaml
+- ./clusterrolebinding.yaml
+- ./deployment.registration.yaml
+- ./deployment.work.yaml

@@ -6,16 +6,35 @@ import (
 	"crypto/x509"
 	"crypto/x509/pkix"
 	"encoding/pem"
+	"flag"
+	"fmt"
 	"log"
 	"math/big"
 	"net"
 	"os"
+	"strings"
 	"time"
 )
 
+var dnsNamesStr string
+var ipAddressesStr string
+var outputDir string
+
 func main() {
+	flag.StringVar(&dnsNamesStr, "dns-names", "", "a comma-separated list of strings")
+	flag.StringVar(&ipAddressesStr, "ip-addresses", "", "a comma-separated list of strings")
+	flag.StringVar(&outputDir, "output-dir", "self-certs", "a comma-separated list of strings")
+
+	flag.Parse()
+
+	dnsNames := strings.Split(dnsNamesStr, ",")
+	ipAddresses := strings.Split(ipAddressesStr, ",")
+
+	fmt.Println("dns names: ", dnsNames)
+	fmt.Println("ip addresses: ", ipAddresses)
+
 	// 创建证书输出目录
-	if err := os.MkdirAll("self-certs", 0755); err != nil {
+	if err := os.MkdirAll(outputDir, 0755); err != nil {
 		log.Fatalf("Failed to create certs directory: %v", err)
 	}
 
@@ -24,14 +43,14 @@ func main() {
 	saveCertAndKey("self-certs/ca.crt", "self-certs/ca.key", caCert, caKey)
 
 	// 2. 生成服务器证书
-	serverCert, serverKey := generateCert(caCert, caKey, "server", []string{"localhost", "server"}, []string{"127.0.0.1"})
+	serverCert, serverKey := generateCert(caCert, caKey, "server", dnsNames, ipAddresses)
 	saveCertAndKey("self-certs/server.crt", "self-certs/server.key", serverCert, serverKey)
 
 	// 3. 生成客户端证书
 	clientCert, clientKey := generateCert(caCert, caKey, "client", nil, nil)
 	saveCertAndKey("self-certs/client.crt", "self-certs/client.key", clientCert, clientKey)
 
-	log.Println("All certificates generated successfully in the 'self-certs' directory")
+	log.Printf("All certificates generated successfully in the %s directory\n", outputDir)
 }
 
 func generateCA() (*x509.Certificate, *rsa.PrivateKey) {

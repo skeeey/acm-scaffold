@@ -1,0 +1,44 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: cluster-manager-grpc-server
+  labels:
+    app: clustermanager-grpc-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clustermanager-grpc-server
+  template:
+    metadata:
+      labels:
+        app: clustermanager-grpc-server
+    spec:
+      serviceAccountName: hub-sa
+      containers:
+      - name: grpc-server
+        image: quay.io/open-cluster-management/registration:latest
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+          privileged: false
+          runAsNonRoot: true
+        volumeMounts:
+          - name: grpc-secret
+            mountPath: "/hub/grpc-certs"
+            readOnly: true
+        ports:
+          - containerPort: 8090
+        args:
+          - "/registration"
+          - "grpc-server"
+          - "--grpc-client-ca-file=/hub/grpc-certs/ca.crt"
+          - "--grpc-tls-cert-file=/hub/grpc-certs/server.crt"
+          - "--grpc-tls-key-file=/hub/grpc-certs/server.key"
+      volumes:
+      - name: grpc-secret
+        secret:
+          secretName: grpc-secret
