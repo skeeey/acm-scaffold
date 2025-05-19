@@ -10,7 +10,7 @@ comment "A gRPC server is introduced on the hub, the managedcluster agents will 
 pe "kubectl -n open-cluster-management-hub get pods,svc"
 
 # register cluster
-comment "Deploy managedcluster agents using gRPC bootstrap config on a spoke cluster to register the spoke cluster"
+comment "Deploy managedcluster agents using gRPC bootstrap config on a spoke cluster to register this cluster"
 pe "kubectl -n open-cluster-management-agent get secrets bootstrap-secret -ojsonpath='{.data.config\.yaml}' | base64 -d"
 pe "kubectl apply -k deploy/spoke"
 pe "kubectl -n open-cluster-management-agent get pods -w"
