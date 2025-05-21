@@ -38,13 +38,7 @@ spec:
         - name: hub-kubeconfig-secret
           mountPath: "/spoke/hub-kubeconfig"
           readOnly: true
-        - name: bootstrap-secret
-          mountPath: "/spoke/bootstrap"
-          readOnly: true
       volumes:
       - name: hub-kubeconfig-secret
         secret:
           secretName: hub-kubeconfig-secret
-      - name: bootstrap-secret
-        secret:
-          secretName: bootstrap-secret
