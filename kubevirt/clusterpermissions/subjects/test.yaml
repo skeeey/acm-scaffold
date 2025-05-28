@@ -1,0 +1,30 @@
+apiVersion: rbac.open-cluster-management.io/v1alpha1
+kind: ClusterPermission
+metadata:
+  name: test-subjects
+spec:
+  clusterRoleBinding:
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: 'kubevirt.io:admin'
+    subjects:
+      - apiGroup: rbac.authorization.k8s.io
+        kind: User
+        name: admin1
+      - apiGroup: rbac.authorization.k8s.io
+        kind: User
+        name: admin2
+  roleBindings:
+    - namespace: default-broker
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: 'kubevirt.io:view'
+      subjects:
+        - apiGroup: rbac.authorization.k8s.io
+          kind: User
+          name: user0
+        - apiGroup: rbac.authorization.k8s.io
+          kind: Group
+          name: kubevirt-projects-view

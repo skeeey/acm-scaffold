@@ -35,3 +35,33 @@ subjects:
   - kind: Group
     apiGroup: rbac.authorization.k8s.io
     name: kubevirt-projects-view
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: clusterview-kubevirtprojects-admin1
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: clusterview-kubevirtprojects
+subjects:
+  - kind: User
+    apiGroup: rbac.authorization.k8s.io
+    name: admin1
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: clusterview-kubevirtprojects-admin2
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: clusterview-kubevirtprojects
+subjects:
+  - kind: User
+    apiGroup: rbac.authorization.k8s.io
+    name: admin2
