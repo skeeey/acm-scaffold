@@ -1,8 +1,6 @@
 module maestro
 
-go 1.24.0
-
-toolchain go1.24.4
+go 1.24.2
 
 require (
 	github.com/openshift-online/maestro v0.0.0-20250527090822-6154c6fb6afa
