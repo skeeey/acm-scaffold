@@ -11,7 +11,7 @@ kind delete cluster --name ${cluster_name}
 kind create cluster --name ${cluster_name}
 
 # load images
-kind load docker-image quay.io/open-cluster-management/addon-manager --name ${cluster_name}
+kind load docker-image quay.io/open-cluster-management/addon-manager:latest --name ${cluster_name}
 kind load docker-image quay.io/open-cluster-management/placement:latest --name ${cluster_name}
 kind load docker-image quay.io/open-cluster-management/registration:latest --name ${cluster_name}
 kind load docker-image quay.io/open-cluster-management/work:latest --name ${cluster_name}
