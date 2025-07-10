@@ -26,8 +26,8 @@ import (
 const sourceID = "mw-client-example"
 
 var (
-	maestroServerAddr = flag.String("maestro-server", "http://localhost:8000", "The Maestro server address")
-	grpcServerAddr    = flag.String("grpc-server", "localhost:8090", "The GRPC server address")
+	maestroServerAddr = flag.String("maestro-server", "http://maestro-grpc.maestro.svc.cluster.local:8000", "The Maestro server address")
+	grpcServerAddr    = flag.String("grpc-server", "maestro-grpc.maestro.svc.cluster.local:8090", "The GRPC server address")
 	consumerName      = flag.String("consumer-name", "", "The Consumer Name")
 )
 
