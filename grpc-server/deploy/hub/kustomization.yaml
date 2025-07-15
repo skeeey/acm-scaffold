@@ -17,6 +17,7 @@ resources:
 - ./bootstrap_clusterrole.yaml
 - ./bootstrap_clusterrolebinding.yaml
 - ./clusterrolebinding.yaml
+- ./configmap.grpc-server.yaml
 - ./deployment.registration.yaml
 - ./deployment.grpc-server.yaml
 - ./deployment.addon-manager.yaml

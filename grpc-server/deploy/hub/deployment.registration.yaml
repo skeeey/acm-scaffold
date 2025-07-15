@@ -27,17 +27,17 @@ spec:
           privileged: false
           runAsNonRoot: true
         volumeMounts:
-          - name: grpc-secret
-            mountPath: "/hub/grpc-certs"
+          - name: grpc-server-certs
+            mountPath: "/hub/grpc/certs"
             readOnly: true
         args:
           - "/registration"
           - "controller"
           - "--enabled-registration-drivers=grpc"
-          - "--grpc-ca-file=/hub/grpc-certs/ca.crt"
-          - "--grpc-key-file=/hub/grpc-certs/ca.key"
+          - "--grpc-ca-file=/hub/grpc/certs/ca.crt"
+          - "--grpc-key-file=/hub/grpc/certs/ca.key"
           - "--disable-leader-election"
       volumes:
-      - name: grpc-secret
+      - name: grpc-server-certs
         secret:
-          secretName: grpc-secret
+          secretName: grpc-server-certs

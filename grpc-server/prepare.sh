@@ -4,6 +4,7 @@ CURRENT_DIR="$(dirname "${BASH_SOURCE[0]}")"
 PARENT_DIR="$(cd ../${CURRENT_DIR} && pwd)"
 DEMO_DIR="$(cd ${CURRENT_DIR} && pwd)"
 
+use_local_images=true
 cluster_name="grpc-svr-demo"
 
 # prepare demo cluster
@@ -11,10 +12,12 @@ kind delete cluster --name ${cluster_name}
 kind create cluster --name ${cluster_name}
 
 # load images
-# kind load docker-image quay.io/open-cluster-management/addon-manager:latest --name ${cluster_name}
-# kind load docker-image quay.io/open-cluster-management/placement:latest --name ${cluster_name}
-# kind load docker-image quay.io/open-cluster-management/registration:latest --name ${cluster_name}
-# kind load docker-image quay.io/open-cluster-management/work:latest --name ${cluster_name}
+if [ "$use_local_images" = true ]; then
+    kind load docker-image quay.io/open-cluster-management/addon-manager:latest --name ${cluster_name}
+    kind load docker-image quay.io/open-cluster-management/placement:latest --name ${cluster_name}
+    kind load docker-image quay.io/open-cluster-management/registration:latest --name ${cluster_name}
+    kind load docker-image quay.io/open-cluster-management/work:latest --name ${cluster_name}
+fi
 
 # prepare kube bootstrap kubeconfig
 cp ${HOME}/.kube/config ${DEMO_DIR}/config/bootstrap.kubeconfig
@@ -30,7 +33,7 @@ kubectl create ns open-cluster-management-agent-addon
 # prepare certs
 go run ${PARENT_DIR}/certs/gen/main.go --dns-names="cluster-manager-grpc-service.open-cluster-management-hub,localhost" --ip-addresses="${cluster_ip},127.0.0.1"
 
-kubectl -n open-cluster-management-hub create secret generic grpc-secret \
+kubectl -n open-cluster-management-hub create secret generic grpc-server-certs \
     --from-file=ca.crt=$DEMO_DIR/self-certs/ca.crt \
     --from-file=ca.key=$DEMO_DIR/self-certs/ca.key \
     --from-file=server.crt=$DEMO_DIR/self-certs/server.crt \

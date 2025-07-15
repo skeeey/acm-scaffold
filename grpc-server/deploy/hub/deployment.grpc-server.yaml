@@ -27,18 +27,22 @@ spec:
           privileged: false
           runAsNonRoot: true
         volumeMounts:
-          - name: grpc-secret
-            mountPath: "/hub/grpc-certs"
+          - name: grpc-server-config
+            mountPath: "/hub/grpc/config"
+            readOnly: true
+          - name: grpc-server-certs
+            mountPath: "/hub/grpc/certs"
             readOnly: true
         ports:
           - containerPort: 8090
         args:
-          - "/registration"
-          - "grpc-server"
-          - "--grpc-client-ca-file=/hub/grpc-certs/ca.crt"
-          - "--grpc-tls-cert-file=/hub/grpc-certs/server.crt"
-          - "--grpc-tls-key-file=/hub/grpc-certs/server.key"
+          - "/server"
+          - "grpc"
+          - "--server-config=/hub/grpc/config/config.yaml"
       volumes:
-      - name: grpc-secret
+      - name: grpc-server-config
+        configMap:
+          name: grpc-server-config
+      - name: grpc-server-certs
         secret:
-          secretName: grpc-secret
+          secretName: grpc-server-certs
