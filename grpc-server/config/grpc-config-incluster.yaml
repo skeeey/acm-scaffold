@@ -1,0 +1,4 @@
+url: cluster-manager-grpc-server.open-cluster-management-hub.svc:8090
+caFile: /spoke/bootstrap/ca.crt
+clientCertFile: /spoke/bootstrap/client.crt
+clientKeyFile: /spoke/bootstrap/client.key
