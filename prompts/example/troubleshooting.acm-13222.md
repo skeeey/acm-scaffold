@@ -18,7 +18,7 @@ The hub must-gather path: `/Users/wliu1/Downloads/must-gather-acm-13222/must-gat
 
 ## Tools
 
-### ocm command
+### omc command
 
 You could use the `omc` command to inspect resources from a `must-gather` in the same way as they are retrieved with the `oc` command.
 
@@ -28,7 +28,7 @@ Point the `omc` to a `must-gather`. This can be a local extracted must-gather, a
 ```sh
 omc use </path/to/must-gather/>
 # Use it like `oc`:
-omc get clusterversion
+omc get clusterversion # show OpenShift cluster version
 omc get pods -o wide -l app=etcd -n openshift-etcd
 ```
 
@@ -36,11 +36,7 @@ omc get pods -o wide -l app=etcd -n openshift-etcd
 
 You cloud use deepwiki mcp to help you better understand and find the relevant context in the related codebase.
 
-## Documents
-
-- You can search the [foundation-docs](https://github.com/stolostron/foundation-docs) GitHub repository, which maintains a collection of documentation and runbooks to help you troubleshoot the issue.
-
-## Code Repositories
+## GitHub Repositories
 
 ### stolostron/ocm
 
@@ -53,3 +49,7 @@ The [stolostron/managedcluster-import-controller](https://github.com/stolostron/
 ### stolostron/klusterlet-addon-controller
 
 The [stolostron/klusterlet-addon-controller](https://github.com/stolostron/klusterlet-addon-controller) is the code base for `klusterlet-addon-controller`, which supports the installation and termination of add-ons on ManagedClusters in ACM, including: work-manager, application, policy, and search. Its branches correspond to ACM versions — for example, the release-2.14 branch corresponds to ACM 2.14.
+
+### stolostron/foundation-docs
+
+The [stolostron/foundation-docs](https://github.com/stolostron/foundation-docs) maintains a collection of documentation and runbooks to help you troubleshoot the issue.

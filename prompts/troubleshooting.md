@@ -17,7 +17,7 @@ The managed cluster must-gather path:
 
 ## Tools
 
-### ocm command
+### omc command
 
 You could use the `omc` command to inspect resources from a `must-gather` in the same way as they are retrieved with the `oc` command.
 
