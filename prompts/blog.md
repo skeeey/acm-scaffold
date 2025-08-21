@@ -16,7 +16,7 @@ Let’s walk through a real example.
 
 Claude alone doesn’t know about JIRA or must-gather. We need to give it “eyes and ears” via MCP tools.
 
-- JIRA MCP – fetches JIRA issue details.
+- [JIRA MCP](https://mcp-registry-poc-ui.devshift.net/servers/9ded7547-7e49-51ec-8f06-11546f127b43) – fetches JIRA issue details.
 
     ```sh
     # use this link https://issues.redhat.com/servicedesk/customer/portal/2/create/45
@@ -25,13 +25,13 @@ Claude alone doesn’t know about JIRA or must-gather. We need to give it “eye
     ```
 
 
-- DeepWiki MCP – helps Claude understand the codebase.
+- [DeepWiki MCP](https://docs.devin.ai/work-with-devin/deepwiki-mcp) – helps Claude understand the codebase.
 
     ```sh
     claude mcp add --transport sse deepwiki https://mcp.deepwiki.com/sse
     ```
 
-- [`omc` command](https://github.com/gmeghnag/omc) – lets Claude (and you) inspect must-gather like `oc`.
+- [`omc`](https://github.com/gmeghnag/omc) command – lets Claude (and you) inspect must-gather like `oc`.
 
 ## Step 2: Guide Claude with a Prompt
 
