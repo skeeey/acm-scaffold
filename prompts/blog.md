@@ -74,7 +74,7 @@ Here is an [example](./foundation/Claude.md)
 
 ## Step 3: Pick your JIRA Issue
 
-Suppose you’re investigating ACM-12962, you’d download the `must-gather` archive and start manually inspecting logs — but we’ll let Claude assist.
+Suppose you’re investigating a JIRA issue XXX-12345, you’d download the `must-gather` and start manually inspecting logs — but we’ll let Claude assist.
 
 ```sh
 claude
@@ -83,11 +83,11 @@ claude
 │                                                                               │
 │   /help for help, /status for your current setup                              │
 │                                                                               │
-│   cwd: /Users/wliu1/go/src/github.com/skeeey/acm-scaffold/prompts/foundation  │
+│   cwd: /Users/xxx/claud-workspace                                             │
 ╰───────────────────────────────────────────────────────────────────────────────╯
 
 ╭─────────────────────────────────────────────────────────────────────────────────────────────╮
-│ > troubeshooting the jira issue ACM-12962, the must-gather locate in /Users/wliu1/Downloads/must-gather-acm-12962                                                            │
+│ > troubeshooting the jira issue XXX-12345, the must-gather locate in /Users/xxx/must-gather                                                            │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────╯
 
 ```
