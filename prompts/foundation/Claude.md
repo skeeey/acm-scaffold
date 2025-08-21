@@ -1,26 +1,8 @@
-----
-description: troubleshooting a server-foundation issue
-deepwiki: https://deepwiki.org/
-deepwiki_mcp: https://docs.devin.ai/work-with-devin/deepwiki-mcp
-enable_deepwiki_mcp: `claude mcp add --transport sse deepwiki https://mcp.deepwiki.com/sse`
-----
-
-## Issue
-
-{issue}
-
-## Environment
-
-The MCE Version: {the_mce_version}
-The ACM Version: {the_acm_version}
-
-The hub must-gather path: {the_hub_must-gather_path}
-The managed cluster must-gather path: {the_managedcluster_must-gather_path}
-
 ## Task
 
-1. Give the issue root cause by analyzing it based on the provided must-gather.
-2. Try to give the solution based on the issue root cause
+1. Use jira-mcp-snowflake mcp to fetch the JIRA issue
+2. Give the issue root cause by analyzing it based on the provided must-gather.
+3. Try to give the solution based on the issue root cause
 
 ## Tools
 
@@ -42,7 +24,7 @@ omc get pods -o wide -l app=etcd -n openshift-etcd
 
 You cloud use deepwiki mcp to help you better understand and find the relevant context in the related codebase.
 
-## GitHub Repositories
+## Related GitHub Repositories
 
 ### stolostron/ocm
 
