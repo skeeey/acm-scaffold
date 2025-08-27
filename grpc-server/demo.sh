@@ -11,8 +11,8 @@ pe "kubectl -n open-cluster-management-hub get pods,svc"
 
 # register cluster
 comment "Deploy klusterlet agents using a gRPC bootstrap config on a spoke cluster to register the spoke cluster"
-pe "kubectl -n open-cluster-management-agent get secrets bootstrap-secret -ojsonpath='{.data.config\.yaml}' | base64 -d"
-pe "kubectl apply -k deploy/spoke"
+pe "kubectl -n open-cluster-management-agent get secrets bootstrap-hub-kubeconfig -ojsonpath='{.data.config\.yaml}' | base64 -d"
+# pe "kubectl apply -k deploy/spoke"
 pe "kubectl -n open-cluster-management-agent get pods -w"
 
 comment "When the klusterlet registration agent start up, it will create ManagedCluster and CSR on the hub"

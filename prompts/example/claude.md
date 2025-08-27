@@ -2,9 +2,7 @@
 
 1. Use jira-mcp-snowflake mcp to fetch the JIRA issue
 2. Give the issue root cause by analyzing it based on the provided must-gather.
-3. Use deepwiki mcp to help you better understand and find the relevant context in the related codebase.
-4. Do **not** send logs, must-gather data, or any sensitive cluster information to deepwiki.
-5. Suggest solutions based on the issue root cause
+3. Try to give the solution based on the issue root cause
 
 ## Tools
 
@@ -21,6 +19,10 @@ omc use </path/to/must-gather/>
 omc get clusterversion # show OpenShift cluster version
 omc get pods -o wide -l app=etcd -n openshift-etcd
 ```
+
+### deepwiki mcp
+
+You cloud use deepwiki mcp to help you better understand and find the relevant context in the related codebase.
 
 ## Related GitHub Repositories
 
