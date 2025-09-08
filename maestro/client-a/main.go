@@ -67,6 +67,11 @@ func main() {
 
 	grpcOptions := &grpc.GRPCOptions{Dialer: &grpc.GRPCDialer{
 		URL: *grpcServerAddr,
+		KeepAliveOptions: grpc.KeepAliveOptions{
+			Enable:  true,
+			Time:    20 * time.Second,
+			Timeout: 10 * time.Second,
+		},
 	}}
 
 	_, err := grpcsource.NewMaestroGRPCSourceWorkClient(
