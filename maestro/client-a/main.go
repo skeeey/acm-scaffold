@@ -23,9 +23,8 @@ import (
 	"open-cluster-management.io/sdk-go/pkg/cloudevents/generic/options/grpc"
 )
 
-const sourceID = "mw-client-example"
-
 var (
+	sourceID          = flag.String("source-id", "mw-client-example", "The source ID for the client")
 	maestroServerAddr = flag.String("maestro-server", "https://127.0.0.1:30080", "The Maestro server address")
 	grpcServerAddr    = flag.String("grpc-server", "127.0.0.1:30090", "The GRPC server address")
 	consumerName      = flag.String("consumer-name", "", "The Consumer Name")
@@ -67,14 +66,15 @@ func main() {
 		},
 	})
 
-	grpcOptions := &grpc.GRPCOptions{Dialer: &grpc.GRPCDialer{}}
-	grpcOptions.Dialer.URL = *grpcServerAddr
+	grpcOptions := &grpc.GRPCOptions{Dialer: &grpc.GRPCDialer{
+		URL: *grpcServerAddr,
+	}}
 
 	workClient, err := grpcsource.NewMaestroGRPCSourceWorkClient(
 		ctx,
 		maestroAPIClient,
 		grpcOptions,
-		sourceID,
+		*sourceID,
 	)
 	if err != nil {
 		log.Fatal(err)
