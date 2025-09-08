@@ -16,7 +16,6 @@ import (
 	"github.com/openshift-online/maestro/pkg/api/openapi"
 	"github.com/openshift-online/maestro/pkg/client/cloudevents/grpcsource"
 
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/watch"
 
 	workv1 "open-cluster-management.io/api/work/v1"
@@ -70,7 +69,7 @@ func main() {
 		URL: *grpcServerAddr,
 	}}
 
-	workClient, err := grpcsource.NewMaestroGRPCSourceWorkClient(
+	_, err := grpcsource.NewMaestroGRPCSourceWorkClient(
 		ctx,
 		maestroAPIClient,
 		grpcOptions,
@@ -80,30 +79,30 @@ func main() {
 		log.Fatal(err)
 	}
 
-	watcher, err := workClient.ManifestWorks(metav1.NamespaceAll).Watch(ctx, metav1.ListOptions{})
-	if err != nil {
-		log.Fatal(err)
-	}
+	// watcher, err := workClient.ManifestWorks(metav1.NamespaceAll).Watch(ctx, metav1.ListOptions{})
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	go func() {
-		ch := watcher.ResultChan()
-		for {
-			select {
-			case <-ctx.Done():
-				return
-			case event, ok := <-ch:
-				if !ok {
-					return
-				}
-				switch event.Type {
-				case watch.Modified:
-					Print(event, *printWorkDetails)
-				case watch.Deleted:
-					Print(event, *printWorkDetails)
-				}
-			}
-		}
-	}()
+	// go func() {
+	// 	ch := watcher.ResultChan()
+	// 	for {
+	// 		select {
+	// 		case <-ctx.Done():
+	// 			return
+	// 		case event, ok := <-ch:
+	// 			if !ok {
+	// 				return
+	// 			}
+	// 			switch event.Type {
+	// 			case watch.Modified:
+	// 				Print(event, *printWorkDetails)
+	// 			case watch.Deleted:
+	// 				Print(event, *printWorkDetails)
+	// 			}
+	// 		}
+	// 	}
+	// }()
 
 	<-ctx.Done()
 }
