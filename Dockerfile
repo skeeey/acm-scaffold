@@ -1,15 +1,17 @@
-FROM golang:1.24 AS builder
+# FROM golang:1.24 AS builder
 
 WORKDIR maestro
 
-COPY go.mod go.sum ./
-COPY vendor/ vendor/
-COPY . .
+# COPY go.mod go.sum ./
+# COPY vendor/ vendor/
+# COPY . .
 
 
-RUN go build -o watcher maestro/client-a/main.go
+# RUN go build -o watcher maestro/client-a/main.go
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal:latest
+
+COPY watcher maestro/watcher
 
 RUN microdnf update -y && \
     microdnf install -y util-linux && \
