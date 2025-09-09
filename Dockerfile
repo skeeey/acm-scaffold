@@ -17,4 +17,4 @@ RUN microdnf update -y && \
     microdnf install -y util-linux && \
     microdnf clean all
 
-COPY --from=builder maestro/watcher /usr/local/bin/
+COPY maestro/watcher /usr/local/bin/
