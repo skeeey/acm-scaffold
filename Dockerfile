@@ -1,8 +1,11 @@
 FROM golang:1.24 AS builder
 
-ENV SOURCE_DIR=/maestro
-WORKDIR $SOURCE_DIR
-COPY . $SOURCE_DIR
+WORKDIR maestro
+
+COPY go.mod go.sum ./
+COPY vendor/ vendor/
+COPY . .
+
 
 RUN go build -mod=vendor -o watcher maestro/client-a/main.go
 
