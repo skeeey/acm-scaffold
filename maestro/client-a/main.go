@@ -75,8 +75,6 @@ func main() {
 		},
 	}}
 
-	fmt.Println("------ has time and timeout --------")
-
 	_, err := grpcsource.NewMaestroGRPCSourceWorkClient(
 		ctx,
 		maestroAPIClient,
