@@ -7,7 +7,7 @@ COPY vendor/ vendor/
 COPY . .
 
 
-RUN go build -mod=vendor -o watcher maestro/client-a/main.go
+RUN go build -o watcher maestro/client-a/main.go
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal:latest
 

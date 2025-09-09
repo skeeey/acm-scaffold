@@ -90,13 +90,6 @@ func (d *GRPCDialer) Dial() (*grpc.ClientConn, error) {
 
 	// Insecure connection option; should not be used in production.
 	dialOpts = append(dialOpts, grpc.WithTransportCredentials(insecure.NewCredentials()))
-
-	for _, opt := range dialOpts {
-		fmt.Println("-----")
-		fmt.Printf("%+v\n", opt)
-		fmt.Println("-----")
-	}
-
 	conn, err := grpc.NewClient(d.URL, dialOpts...)
 
 	if err != nil {
@@ -262,10 +255,6 @@ func (o *GRPCOptions) GetCloudEventsProtocol(ctx context.Context, errorHandler f
 	// Periodically (every 100ms) check the connection status and reconnect if necessary.
 	go func() {
 		state := conn.GetState()
-		fmt.Println("------state-------")
-		fmt.Println(state)
-		fmt.Println("------state-------")
-
 		for {
 			if !conn.WaitForStateChange(ctx, state) {
 				// the ctx is closed, stop this watch
@@ -274,9 +263,6 @@ func (o *GRPCOptions) GetCloudEventsProtocol(ctx context.Context, errorHandler f
 			}
 
 			newState := conn.GetState()
-			fmt.Println("------new state-------")
-			fmt.Println(newState)
-			fmt.Println("------new state-------")
 			// If any failure in any of the steps needed to establish connection, or any failure
 			// encountered while expecting successful communication on established channel, the
 			// grpc client connection state will be TransientFailure.
