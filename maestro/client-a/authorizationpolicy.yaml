@@ -1,0 +1,16 @@
+# health-check-allow.yaml
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-health-check
+  namespace: maestro
+spec:
+  selector:
+    matchLabels:
+      app: maestro
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        methods: ["POST"]
+        paths: ["/grpc.health.v1.Health/Watch", "/grpc.health.v1.Health/Check"]
