@@ -33,7 +33,7 @@ spec:
         - name: GRPC_GO_LOG_SEVERITY_LEVEL
           value: "info"
         - name: GRPC_GO_LOG_VERBOSITY_LEVEL
-          value: "100"
+          value: "99"
         image: quay.io/skeeey/maestro:grpcwather
         imagePullPolicy: Always
         name: maestro-grpc-watcher

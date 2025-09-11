@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: maestro-grpc-dr
+  namespace: maestro-test
+spec:
+  host: maestro-grpc.maestro.svc.cluster.local
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        connectTimeout: 3s
+        tcpKeepalive:
+          time: 20s
+          interval: 10s
+          probes: 3
+      http:
+        http2MaxRequests: 10
+        maxRequestsPerConnection: 2
+        h2UpgradePolicy: UPGRADE
+    outlierDetection:
+      consecutive5xxErrors: 1
+      consecutiveGatewayErrors: 1
+      interval: 5s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 100
+      minHealthPercent: 0

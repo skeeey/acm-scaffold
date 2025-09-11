@@ -17,6 +17,7 @@ import (
 	"github.com/openshift-online/maestro/pkg/client/cloudevents/grpcsource"
 
 	"k8s.io/apimachinery/pkg/watch"
+	"k8s.io/utils/ptr"
 
 	workv1 "open-cluster-management.io/api/work/v1"
 	"open-cluster-management.io/sdk-go/pkg/cloudevents/generic/options/grpc"
@@ -67,13 +68,16 @@ func main() {
 
 	grpcOptions := &grpc.GRPCOptions{Dialer: &grpc.GRPCDialer{
 		URL: *grpcServerAddr,
-		KeepAliveOptions: grpc.KeepAliveOptions{
-			Enable:              true,
-			Time:                20 * time.Second,
-			Timeout:             10 * time.Second,
-			PermitWithoutStream: true,
-		},
-	}}
+
+		// KeepAliveOptions: grpc.KeepAliveOptions{
+		// 	Enable:              true,
+		// 	Time:                20 * time.Second,
+		// 	Timeout:             10 * time.Second,
+		// 	PermitWithoutStream: true,
+		// },
+	},
+		ServerHealthinessTimeout: ptr.To(20 * time.Second),
+	}
 
 	_, err := grpcsource.NewMaestroGRPCSourceWorkClient(
 		ctx,
