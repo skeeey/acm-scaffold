@@ -16,6 +16,7 @@ import (
 	"github.com/openshift-online/maestro/pkg/api/openapi"
 	"github.com/openshift-online/maestro/pkg/client/cloudevents/grpcsource"
 
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/utils/ptr"
 
@@ -25,9 +26,9 @@ import (
 
 var (
 	sourceID          = flag.String("source-id", "mw-client-example", "The source ID for the client")
-	maestroServerAddr = flag.String("maestro-server", "https://127.0.0.1:30080", "The Maestro server address")
+	maestroServerAddr = flag.String("maestro-server", "http://127.0.0.1:8000", "The Maestro server address")
 	grpcServerAddr    = flag.String("grpc-server", "127.0.0.1:8090", "The GRPC server address")
-	consumerName      = flag.String("consumer-name", "test", "The Consumer Name")
+	consumerName      = flag.String("consumer-name", "hcp-underlay-usw3lcao-mgmt-1", "The Consumer Name")
 	printWorkDetails  = flag.Bool("print-work-details", false, "Print work details")
 )
 
@@ -71,7 +72,7 @@ func main() {
 		ServerHealthinessTimeout: ptr.To(20 * time.Second),
 	}
 
-	_, err := grpcsource.NewMaestroGRPCSourceWorkClient(
+	workClient, err := grpcsource.NewMaestroGRPCSourceWorkClient(
 		ctx,
 		maestroAPIClient,
 		grpcOptions,
@@ -81,30 +82,30 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// watcher, err := workClient.ManifestWorks(metav1.NamespaceAll).Watch(ctx, metav1.ListOptions{})
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	watcher, err := workClient.ManifestWorks(metav1.NamespaceAll).Watch(ctx, metav1.ListOptions{})
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// go func() {
-	// 	ch := watcher.ResultChan()
-	// 	for {
-	// 		select {
-	// 		case <-ctx.Done():
-	// 			return
-	// 		case event, ok := <-ch:
-	// 			if !ok {
-	// 				return
-	// 			}
-	// 			switch event.Type {
-	// 			case watch.Modified:
-	// 				Print(event, *printWorkDetails)
-	// 			case watch.Deleted:
-	// 				Print(event, *printWorkDetails)
-	// 			}
-	// 		}
-	// 	}
-	// }()
+	go func() {
+		ch := watcher.ResultChan()
+		for {
+			select {
+			case <-ctx.Done():
+				return
+			case event, ok := <-ch:
+				if !ok {
+					return
+				}
+				switch event.Type {
+				case watch.Modified:
+					Print(event, *printWorkDetails)
+				case watch.Deleted:
+					Print(event, *printWorkDetails)
+				}
+			}
+		}
+	}()
 
 	<-ctx.Done()
 }

@@ -41,4 +41,5 @@ consumer.json
 # dirs
 log
 self-certs
+vendor
 .claude

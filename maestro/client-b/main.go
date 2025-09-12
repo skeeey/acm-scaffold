@@ -23,12 +23,11 @@ import (
 	"open-cluster-management.io/sdk-go/pkg/cloudevents/generic/options/grpc"
 )
 
-const sourceID = "mw-client-example"
-
 var (
-	maestroServerAddr = flag.String("maestro-server", "http://maestro-grpc.maestro.svc.cluster.local:8000", "The Maestro server address")
-	grpcServerAddr    = flag.String("grpc-server", "maestro-grpc.maestro.svc.cluster.local:8090", "The GRPC server address")
-	consumerName      = flag.String("consumer-name", "", "The Consumer Name")
+	sourceID          = flag.String("source-id", "mw-client-example", "The source ID for the client")
+	maestroServerAddr = flag.String("maestro-server", "http://127.0.0.1:8000", "The Maestro server address")
+	grpcServerAddr    = flag.String("grpc-server", "127.0.0.1:8090", "The GRPC server address")
+	consumerName      = flag.String("consumer-name", "hcp-underlay-usw3lcao-mgmt-1", "The Consumer Name")
 )
 
 func main() {
@@ -67,7 +66,7 @@ func main() {
 		ctx,
 		maestroAPIClient,
 		grpcOptions,
-		sourceID,
+		*sourceID,
 	)
 	if err != nil {
 		log.Fatal(err)
@@ -102,11 +101,11 @@ func main() {
 
 	<-time.After(5 * time.Second)
 
-	err = workClient.ManifestWorks(*consumerName).Delete(ctx, workName, metav1.DeleteOptions{})
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("the work %s/%s (uid=%s) is deleted\n", *consumerName, workName, work.UID)
+	// err = workClient.ManifestWorks(*consumerName).Delete(ctx, workName, metav1.DeleteOptions{})
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Printf("the work %s/%s (uid=%s) is deleted\n", *consumerName, workName, work.UID)
 }
 
 func NewManifestWork(name string) *workv1.ManifestWork {
