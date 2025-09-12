@@ -73,4 +73,4 @@ require (
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
 
-replace open-cluster-management.io/sdk-go => github.com/skeeey/sdk-go v0.0.0-20250911075202-84890283583a
+replace open-cluster-management.io/sdk-go => github.com/skeeey/sdk-go v0.0.0-20250912025035-8e4cc24cd0df
