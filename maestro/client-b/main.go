@@ -15,7 +15,6 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/rand"
 
 	workv1 "open-cluster-management.io/api/work/v1"
@@ -24,7 +23,8 @@ import (
 )
 
 var (
-	sourceID          = flag.String("source-id", "mw-client-example", "The source ID for the client")
+	sourceID = flag.String("source-id", "mw-client-example", "The source ID for the client")
+	//sourceID          = flag.String("source-id", "aro-hcp-1", "The source ID for the client")
 	maestroServerAddr = flag.String("maestro-server", "http://127.0.0.1:8000", "The Maestro server address")
 	grpcServerAddr    = flag.String("grpc-server", "127.0.0.1:8090", "The GRPC server address")
 	consumerName      = flag.String("consumer-name", "hcp-underlay-usw3lcao-mgmt-1", "The Consumer Name")
@@ -73,7 +73,7 @@ func main() {
 	}
 
 	// use workClient to create/get/patch/delete work
-	workName := "work-" + rand.String(5)
+	workName := fmt.Sprintf("work-%s-%s", *sourceID, rand.String(5))
 	_, err = workClient.ManifestWorks(*consumerName).Create(ctx, NewManifestWork(workName), metav1.CreateOptions{})
 	if err != nil {
 		log.Fatal(err)
@@ -87,19 +87,19 @@ func main() {
 	}
 	fmt.Printf("the work %s/%s (uid=%s) is created\n", *consumerName, workName, work.UID)
 
-	newWork := work.DeepCopy()
-	newWork.Spec.Workload.Manifests = []workv1.Manifest{NewManifest(workName)}
-	patchData, err := grpcsource.ToWorkPatch(work, newWork)
-	if err != nil {
-		log.Fatal(err)
-	}
-	_, err = workClient.ManifestWorks(*consumerName).Patch(ctx, workName, types.MergePatchType, patchData, metav1.PatchOptions{})
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("the work %s/%s (uid=%s) is updated\n", *consumerName, workName, work.UID)
+	// newWork := work.DeepCopy()
+	// newWork.Spec.Workload.Manifests = []workv1.Manifest{NewManifest(workName)}
+	// patchData, err := grpcsource.ToWorkPatch(work, newWork)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// _, err = workClient.ManifestWorks(*consumerName).Patch(ctx, workName, types.MergePatchType, patchData, metav1.PatchOptions{})
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Printf("the work %s/%s (uid=%s) is updated\n", *consumerName, workName, work.UID)
 
-	<-time.After(5 * time.Second)
+	// <-time.After(5 * time.Second)
 
 	// err = workClient.ManifestWorks(*consumerName).Delete(ctx, workName, metav1.DeleteOptions{})
 	// if err != nil {
