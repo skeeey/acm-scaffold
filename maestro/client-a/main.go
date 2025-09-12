@@ -48,6 +48,13 @@ func main() {
 		<-stopCh
 	}()
 
+	go Run(ctx, *sourceID)
+	go Run(ctx, "aro-hcp-1")
+
+	<-ctx.Done()
+}
+
+func Run(ctx context.Context, sourceID string) {
 	maestroAPIClient := openapi.NewAPIClient(&openapi.Configuration{
 		DefaultHeader: make(map[string]string),
 		UserAgent:     "OpenAPI-Generator/1.0.0/go",
@@ -76,7 +83,7 @@ func main() {
 		ctx,
 		maestroAPIClient,
 		grpcOptions,
-		*sourceID,
+		sourceID,
 	)
 	if err != nil {
 		log.Fatal(err)
@@ -106,13 +113,11 @@ func main() {
 			}
 		}
 	}()
-
-	<-ctx.Done()
 }
 
 func Print(event watch.Event, printDetails bool) {
 	work := event.Object.(*workv1.ManifestWork)
-	fmt.Printf("watched work (uid=%s) is %s\n", work.UID, event.Type)
+	fmt.Printf("watched work (%s) uid=%s, name=%s\n", event.Type, work.UID, work.Name)
 
 	if printDetails {
 		workJson, err := json.MarshalIndent(work, "", "  ")

@@ -22,14 +22,15 @@ spec:
         app: maestro-grpc-watcher
         azure.workload.identity/use: "true"
     spec:
+      serviceAccountName: clusters-service
       containers:
       - command:
         - /usr/local/bin/watcher
-        - --source-id=arohcpdev-test
+        - --source-id=mw-client-example
         - --maestro-server=http://maestro.maestro.svc.cluster.local:8000
         - --grpc-server=maestro-grpc.maestro.svc.cluster.local:8090
         - --consumer-name=hcp-underlay-usw3lcao-mgmt-1
-        env:
+        # env:
         # - name: GRPC_GO_LOG_SEVERITY_LEVEL
         #   value: "info"
         # - name: GRPC_GO_LOG_VERBOSITY_LEVEL
