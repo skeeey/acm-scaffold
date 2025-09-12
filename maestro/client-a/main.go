@@ -106,18 +106,18 @@ func Run(ctx context.Context, sourceID string) {
 				}
 				switch event.Type {
 				case watch.Modified:
-					Print(event, *printWorkDetails)
+					Print(sourceID, event, *printWorkDetails)
 				case watch.Deleted:
-					Print(event, *printWorkDetails)
+					Print(sourceID, event, *printWorkDetails)
 				}
 			}
 		}
 	}()
 }
 
-func Print(event watch.Event, printDetails bool) {
+func Print(sourceId string, event watch.Event, printDetails bool) {
 	work := event.Object.(*workv1.ManifestWork)
-	fmt.Printf("watched work (%s) uid=%s, name=%s\n", event.Type, work.UID, work.Name)
+	fmt.Printf("watched work (%s) source=%s, name=%s, uid=%s\n", event.Type, sourceId, work.Name, work.UID)
 
 	if printDetails {
 		workJson, err := json.MarshalIndent(work, "", "  ")
