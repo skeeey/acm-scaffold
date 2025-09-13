@@ -6,7 +6,6 @@ require (
 	github.com/openshift-online/maestro v0.0.0-20250910074040-38aad57418bc
 	k8s.io/apimachinery v0.33.4
 	k8s.io/client-go v0.33.4
-	k8s.io/utils v0.0.0-20241210054802-24370beab758
 	open-cluster-management.io/api v1.0.1-0.20250827024027-f3e5dab96ea1
 	open-cluster-management.io/sdk-go v1.0.1-0.20250901084824-d4c9f78c2e6a
 )
@@ -67,12 +66,13 @@ require (
 	k8s.io/api v0.33.4 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20250318190949-c8a335a9a2ff // indirect
+	k8s.io/utils v0.0.0-20241210054802-24370beab758 // indirect
 	sigs.k8s.io/json v0.0.0-20241014173422-cfa47c3a1cc8 // indirect
 	sigs.k8s.io/randfill v1.0.0 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.6.0 // indirect
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
 
-replace open-cluster-management.io/sdk-go => github.com/skeeey/sdk-go v0.0.0-20250913091018-a0779f77f2c3
+replace open-cluster-management.io/sdk-go => github.com/skeeey/sdk-go v0.0.0-20250913113305-048c2368ba08
 
-//replace github.com/openshift-online/maestro => /Users/wliu1/go/src/github.com/openshift-online/maestro
+// replace github.com/openshift-online/maestro => /Users/wliu1/go/src/github.com/openshift-online/maestro

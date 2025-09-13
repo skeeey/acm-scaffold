@@ -35,7 +35,7 @@ spec:
         #   value: "info"
         # - name: GRPC_GO_LOG_VERBOSITY_LEVEL
         #   value: "99"
-        image: quay.io/skeeey/maestro:grpcwather
+        image: quay.io/skeeey/maestro:grpcwather-hb
         imagePullPolicy: Always
         name: maestro-grpc-watcher
       dnsPolicy: ClusterFirst
