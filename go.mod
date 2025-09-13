@@ -73,4 +73,6 @@ require (
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
 
-replace open-cluster-management.io/sdk-go => github.com/skeeey/sdk-go v0.0.0-20250912082355-438639dc0afa
+replace open-cluster-management.io/sdk-go => github.com/skeeey/sdk-go v0.0.0-20250913091018-a0779f77f2c3
+
+//replace github.com/openshift-online/maestro => /Users/wliu1/go/src/github.com/openshift-online/maestro

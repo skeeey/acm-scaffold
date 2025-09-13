@@ -18,7 +18,6 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/watch"
-	"k8s.io/utils/ptr"
 
 	workv1 "open-cluster-management.io/api/work/v1"
 	"open-cluster-management.io/sdk-go/pkg/cloudevents/generic/options/grpc"
@@ -75,8 +74,8 @@ func Run(ctx context.Context, sourceID string) {
 	})
 
 	grpcOptions := &grpc.GRPCOptions{
-		Dialer:                   &grpc.GRPCDialer{URL: *grpcServerAddr},
-		ServerHealthinessTimeout: ptr.To(20 * time.Second),
+		Dialer: &grpc.GRPCDialer{URL: *grpcServerAddr},
+		//ServerHealthinessTimeout: ptr.To(20 * time.Second),
 	}
 
 	workClient, err := grpcsource.NewMaestroGRPCSourceWorkClient(
