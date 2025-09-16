@@ -23,8 +23,8 @@ import (
 )
 
 var (
-	//sourceID = flag.String("source-id", "mw-client-example", "The source ID for the client")
-	sourceID          = flag.String("source-id", "aro-hcp-1", "The source ID for the client")
+	sourceID = flag.String("source-id", "mw-client-example", "The source ID for the client")
+	//sourceID          = flag.String("source-id", "aro-hcp-1", "The source ID for the client")
 	maestroServerAddr = flag.String("maestro-server", "http://127.0.0.1:8000", "The Maestro server address")
 	grpcServerAddr    = flag.String("grpc-server", "127.0.0.1:8090", "The GRPC server address")
 	consumerName      = flag.String("consumer-name", "hcp-underlay-usw3lcao-mgmt-1", "The Consumer Name")
