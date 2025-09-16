@@ -3,12 +3,12 @@ module scaffold
 go 1.24.7
 
 require (
-	github.com/openshift-online/maestro v0.0.0-20250910074040-38aad57418bc
+	github.com/openshift-online/maestro v0.0.0-20250916093114-b2931f95f71e
 	k8s.io/apimachinery v0.33.4
 	k8s.io/client-go v0.33.4
 	k8s.io/utils v0.0.0-20241210054802-24370beab758
 	open-cluster-management.io/api v1.0.1-0.20250827024027-f3e5dab96ea1
-	open-cluster-management.io/sdk-go v1.0.1-0.20250901084824-d4c9f78c2e6a
+	open-cluster-management.io/sdk-go v1.0.1-0.20250916055700-f472a1dd1a4f
 )
 
 require (
@@ -59,7 +59,7 @@ require (
 	golang.org/x/time v0.12.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250218202821-56aae31c358a // indirect
 	google.golang.org/grpc v1.71.0 // indirect
-	google.golang.org/protobuf v1.36.8 // indirect
+	google.golang.org/protobuf v1.36.9 // indirect
 	gopkg.in/evanphx/json-patch.v4 v4.12.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
@@ -73,6 +73,8 @@ require (
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
 
-replace open-cluster-management.io/sdk-go => github.com/skeeey/sdk-go v0.0.0-20250916024735-d8de8b0e3bab
+//replace open-cluster-management.io/sdk-go => github.com/skeeey/sdk-go v0.0.0-20250916024735-d8de8b0e3bab
 
-//replace github.com/openshift-online/maestro => /Users/wliu1/go/src/github.com/openshift-online/maestro
+// replace github.com/openshift-online/maestro => /Users/wliu1/go/src/github.com/openshift-online/maestro
+
+// replace open-cluster-management.io/sdk-go => /Users/wliu1/go/src/open-cluster-management-io/sdk-go
