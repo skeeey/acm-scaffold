@@ -1,6 +1,8 @@
 #!/bin/bash
 
-REPO="github.com/skeeey/sdk-go"
+BASE="github.com/skeeey"
+NAME="${NAME:-sdk-go}"
+REPO="$BASE/$NAME"
 BRANCH="${1:-main}"
 
 echo "Fetching latest commit from $REPO branch: $BRANCH"
@@ -28,4 +30,4 @@ PSEUDO="v0.0.0-${TIMESTAMP}-${SHA:0:12}"
 
 echo "✅ Pseudo-version: $PSEUDO"
 echo "Use in go.mod:"
-echo "replace open-cluster-management.io/sdk-go => $REPO $PSEUDO"
+echo "replace open-cluster-management.io/$NAME => $REPO $PSEUDO"
