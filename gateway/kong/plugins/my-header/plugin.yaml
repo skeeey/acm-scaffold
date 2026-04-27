@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kong-plugin-my-header
+  namespace: kong
+data:
+  handler.lua: |
+    local MyHeader = {
+      PRIORITY = 1000,
+      VERSION = "0.1.0",
+    }
+
+    function MyHeader:access(conf)
+      kong.service.request.set_header(conf.request_header, conf.header_value)
+    end
+
+    function MyHeader:header_filter(conf)
+      kong.response.set_header(conf.response_header, conf.header_value)
+    end
+
+    return MyHeader
+
+  schema.lua: |
+    local typedefs = require "kong.db.schema.typedefs"
+
+    return {
+      name = "my-header",
+      fields = {
+        { protocols = typedefs.protocols_http },
+        { config = {
+            type = "record",
+            fields = {
+              { request_header = { type = "string", required = true, default = "X-My-Request" } },
+              { response_header = { type = "string", required = true, default = "X-My-Response" } },
+              { header_value = { type = "string", required = true, default = "hello-from-my-plugin" } },
+            },
+          },
+        },
+      },
+    }

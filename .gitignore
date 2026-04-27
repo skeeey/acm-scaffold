@@ -18,6 +18,7 @@
 *.log
 *-test.yaml
 *_rosa_cluster.yaml
+*.wasm
 
 pull_secret.*
 splitted-import*.yaml
